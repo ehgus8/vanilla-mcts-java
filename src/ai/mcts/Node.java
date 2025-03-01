@@ -27,6 +27,9 @@ public class Node {
     }
 
     public static double getUCB(Node node) {
+        if(node.visit == 0) {
+            return Double.POSITIVE_INFINITY;
+        }
         return node.value / node.visit + Math.sqrt(2 * Math.log(node.parent.visit) / node.visit);
     }
 
@@ -61,5 +64,26 @@ public class Node {
                 game.undoAction(node.prevAction);
             }
         }
+    }
+
+    public Node getChild(String criteria) {
+        if(criteria.equals("maxVisit")) {
+            int maxIndex = -1;
+            int maxVisit = Integer.MIN_VALUE;
+            for(int i = 0; i < this.children.size(); i++) {
+                if(this.children.get(i).visit > maxVisit) {
+                    maxVisit = this.children.get(i).visit;
+                    maxIndex = i;
+                }
+            }
+            return this.children.get(maxIndex);
+        } else { // sampleVisit
+
+        }
+        return null;
+    }
+
+    public Point getNextAction(String criteria) {
+        return this.getChild(criteria).prevAction;
     }
 }

@@ -23,7 +23,6 @@ public class MCTS {
             while(currentNode.hasChildren()) {
                 currentNode = currentNode.select();
                 trace.add(currentNode);
-
                 game.applyAction(currentNode.parent.currentPlayer, currentNode.prevAction);
             }
             if(currentNode.parent != null) {
@@ -51,18 +50,26 @@ public class MCTS {
         int moveCount = node.moveCount;
 
         int stateDim = game.rows * game.cols;
+        List<Point> actionHistory = new ArrayList<>();
         while(moveCount < stateDim) {
             List<Point> validActions = game.getValidActions();
             int actionIdx = (int)(Math.random() * validActions.size());
             Point action = validActions.get(actionIdx);
-
             currentPlayer = game.applyAction(currentPlayer, action);
+            actionHistory.add(action);
             moveCount++;
-
-            int winner = game.checkWinner(1 - currentPlayer, action);
+//            game.displayBoard();
+//            System.out.println("moveCount:"+moveCount);
+            int winner = game.checkWinner(currentPlayer * -1, action);
             if(winner != -1) {
-                return winner == (1 - node.currentPlayer) ? 1 : -1;
+                for(Point a: actionHistory) {
+                    game.undoAction(a);
+                }
+                return winner == (node.currentPlayer * -1) ? 1 : -1;
             }
+        }
+        for(Point a: actionHistory) {
+            game.undoAction(a);
         }
         return 0; // draw
     }

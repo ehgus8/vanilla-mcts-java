@@ -22,7 +22,7 @@ public abstract class BoardGame {
     public abstract void undoAction(Point action);
 
     public abstract int checkWinner(int player, Point action);
-    
-    public abstract void playAgainstMCTS(int mctsIterations);
+
+    public abstract Point getUserAction();
 
 }

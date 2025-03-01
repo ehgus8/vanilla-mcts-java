@@ -1,5 +1,7 @@
 package games;
 
+import ai.mcts.MCTS;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -11,12 +13,36 @@ public class TicTacToe extends BoardGame {
 
     @Override
     public void displayBoard() {
-        System.out.println(board.toString());
+        for(int j = 0; j < this.cols; j++) {
+            System.out.print(j % 10);
+            System.out.print("   ");
+        }
+        System.out.println();
+        for(int i = 0; i < this.rows; i++) {
+            for(int j = 0; j < this.cols; j++) {
+                if(this.board[i][j] == 0) {
+                    System.out.print("' ' ");
+                } else if (this.board[i][j] == 1) {
+                    System.out.print("'O' ");
+                } else {
+                    System.out.print("'X' ");
+                }
+            }
+            System.out.println();
+        }
     }
 
     @Override
     public List<Point> getValidActions() {
-        return List.of();
+        List<Point> validActions = new ArrayList<>();
+        for(int i = 0; i < this.rows; i++) {
+            for(int j = 0; j < this.cols; j++) {
+                if(board[i][j] == 0) {
+                    validActions.add(new Point(j, i));
+                }
+            }
+        }
+        return validActions;
     }
 
     @Override
@@ -25,7 +51,7 @@ public class TicTacToe extends BoardGame {
         int x = action.x;
         if(board[y][x] == 0) {
             board[y][x] = currentPlayer;
-            return 1 - currentPlayer;
+            return currentPlayer * -1;
         }
         System.out.println("Invalid action. Try again.");
         return currentPlayer;
@@ -92,7 +118,12 @@ public class TicTacToe extends BoardGame {
     }
 
     @Override
-    public void playAgainstMCTS(int mctsIterations) {
+    public Point getUserAction() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Input (row and col): ");
+        String row = sc.next();
+        String col = sc.next();
 
+        return new Point(Integer.parseInt(col), Integer.parseInt(row));
     }
 }
