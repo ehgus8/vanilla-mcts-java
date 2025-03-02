@@ -114,7 +114,7 @@ public class TicTacToe extends BoardGame {
                 return player;
             }
         }
-        return -1; // no winner
+        return 0; // no winner
     }
 
     @Override

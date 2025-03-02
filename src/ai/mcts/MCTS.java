@@ -27,7 +27,7 @@ public class MCTS {
             }
             if(currentNode.parent != null) {
                 int winner = game.checkWinner(currentNode.parent.currentPlayer, currentNode.prevAction);
-                if(winner != -1) {
+                if(winner != 0) {
                     double value = currentNode.parent.currentPlayer == winner ? 1 : -1;
                     currentNode.backup(game, trace, value);
                     continue;
@@ -61,7 +61,7 @@ public class MCTS {
 //            game.displayBoard();
 //            System.out.println("moveCount:"+moveCount);
             int winner = game.checkWinner(currentPlayer * -1, action);
-            if(winner != -1) {
+            if(winner != 0) {
                 for(Point a: actionHistory) {
                     game.undoAction(a);
                 }
