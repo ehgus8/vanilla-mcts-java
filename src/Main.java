@@ -1,6 +1,7 @@
 import ai.mcts.MCTS;
 import ai.mcts.Node;
 import games.BoardGame;
+import games.Gomoku;
 import games.TicTacToe;
 
 import java.awt.*;
@@ -26,7 +27,7 @@ public class Main {
 
         int currentPlayer = 1;
         int moveCount = 0;
-        int winner = -1;
+        int winner = 0;
         while(true) {
             game.displayBoard();
             if(currentPlayer == userTurn) {
@@ -43,7 +44,7 @@ public class Main {
                 winner = game.checkWinner(currentPlayer * -1, action);
             }
 
-            if(winner != -1) {
+            if(winner != 0) {
                 game.displayBoard();
                 if(winner == userTurn) {
                     System.out.println("User win!");
@@ -67,7 +68,8 @@ public class Main {
         BoardGame game;
         while(true) {
             System.out.println("1. TicTacToe");
-            System.out.println("2. Exit");
+            System.out.println("2. Gomoku(Omok)");
+            System.out.println("3. Exit");
             String sel = sc.next();
             if (sel.length() > 1) {
                 System.out.println("Invalid input.");
@@ -75,6 +77,9 @@ public class Main {
                 game = new TicTacToe();
                 playAgainstMCTS(game, 500);
             } else if (sel.equals("2")) {
+                game = new Gomoku();
+                playAgainstMCTS(game, 8000);
+            } else if (sel.equals("3")) {
                 return;
             }
         }
