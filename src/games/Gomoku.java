@@ -13,12 +13,13 @@ public class Gomoku extends BoardGame {
 
     @Override
     public void displayBoard() {
+        System.out.print("    ");
         for(int j = 0; j < this.cols; j++) {
-            System.out.print(j % 10);
-            System.out.print("    ");
+            System.out.printf("'%d' ",j % 10);
         }
         System.out.println();
         for(int i = 0; i < this.rows; i++) {
+            System.out.printf("'%d' ",i % 10);
             for(int j = 0; j < this.cols; j++) {
                 if(this.board[i][j] == 0) {
                     System.out.print("' ' ");
