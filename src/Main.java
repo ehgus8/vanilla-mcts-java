@@ -68,7 +68,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-
         BoardGame game;
         while(true) {
             System.out.println("1. TicTacToe");
@@ -85,6 +84,8 @@ public class Main {
                 playAgainstMCTS(game, 8000);
             } else if (sel.equals("3")) {
                 return;
+            } else {
+                System.out.println("Invalid input.");
             }
         }
     }
