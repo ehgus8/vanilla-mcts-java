@@ -42,6 +42,10 @@ public class Main {
                 currentPlayer = game.applyAction(currentPlayer, action);
                 moveCount++;
                 winner = game.checkWinner(currentPlayer * -1, action);
+
+                for(Node child: root.children) {
+                    System.out.printf("Action:(%d, %d), Visit: %d UCB: %f\n",child.prevAction.y, child.prevAction.x, child.visit, Node.getUCB(child));
+                }
             }
 
             if(winner != 0) {
