@@ -35,12 +35,25 @@ public class Gomoku extends BoardGame {
     @Override
     public List<Point> getValidActions() {
         List<Point> validActions = new ArrayList<>();
+        int[][] directions = { {0, 1}, {1, 0}, {1, 1}, {1, -1} };
         for(int i = 0; i < this.rows; i++) {
             for(int j = 0; j < this.cols; j++) {
-                if(board[i][j] == 0) {
-                    validActions.add(new Point(j, i));
+                if(board[i][j] != 0) {
+                    for(int[] dir: directions) {
+                        int nr = i + dir[0];
+                        int nc = j + dir[1];
+                        if(isInBounds(nr, nc) && board[nr][nc] == 0)
+                            validActions.add(new Point(nc, nr));
+                        nr = i - dir[0];
+                        nc = j - dir[1];
+                        if(isInBounds(nr, nc) && board[nr][nc] == 0)
+                            validActions.add(new Point(nc, nr));
+                    }
                 }
             }
+        }
+        if(validActions.isEmpty()) {
+            validActions.add(new Point(this.cols/2, this.rows/2));
         }
         return validActions;
     }
