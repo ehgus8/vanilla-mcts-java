@@ -49,7 +49,7 @@ public class Node {
 
     public void expand(List<Point> validActions) {
         for(Point action: validActions) {
-            this.children.add(new Node(this, action, 1 - this.currentPlayer,
+            this.children.add(new Node(this, action, this.currentPlayer * -1,
                     this.moveCount + 1));
         }
     }
