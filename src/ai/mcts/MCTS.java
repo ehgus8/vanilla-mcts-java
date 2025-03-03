@@ -53,6 +53,13 @@ public class MCTS {
         List<Point> actionHistory = new ArrayList<>();
         while(moveCount < stateDim && winner == 0) {
             List<Point> validActions = game.getValidActions();
+
+            for(Point actionCandidate: actionHistory) {
+                winner = game.checkWinner(currentPlayer, actionCandidate);
+                if(winner != 0) {
+                    break;
+                }
+            }
             int actionIdx = (int)(Math.random() * validActions.size());
             Point action = validActions.get(actionIdx);
             currentPlayer = game.applyAction(currentPlayer, action);
