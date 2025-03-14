@@ -1,6 +1,6 @@
-package ai.mcts;
+package test.ai.mcts;
 
-import games.BoardGame;
+import test.games.BoardGame;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -85,5 +85,9 @@ public class Node {
 
     public Point getNextAction(String criteria) {
         return this.getChild(criteria).prevAction;
+    }
+
+    public Node getNextNode(String criteria) {
+        return this.getChild(criteria);
     }
 }

@@ -1,6 +1,4 @@
-package games;
-
-import ai.mcts.MCTS;
+package main.games;
 
 import java.awt.*;
 import java.util.*;
@@ -117,6 +115,10 @@ public class TicTacToe extends BoardGame {
         return 0; // no winner
     }
 
+    @Override
+    public Point getActionByStrategies(List<Point> validActions, int currentPlayer) {
+        return null;
+    }
     @Override
     public Point getUserAction() {
         Scanner sc = new Scanner(System.in);

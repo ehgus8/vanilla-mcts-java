@@ -1,4 +1,4 @@
-package games;
+package main.games;
 
 import java.awt.*;
 import java.util.List;
@@ -22,6 +22,8 @@ public abstract class BoardGame {
     public abstract void undoAction(Point action);
 
     public abstract int checkWinner(int player, Point action);
+
+    public abstract Point getActionByStrategies(List<Point> validActions, int currentPlayer);
 
     public abstract Point getUserAction();
 

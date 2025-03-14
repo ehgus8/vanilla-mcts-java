@@ -1,8 +1,10 @@
-import ai.mcts.MCTS;
-import ai.mcts.Node;
-import games.BoardGame;
-import games.Gomoku;
-import games.TicTacToe;
+package main;
+
+import main.ai.mcts.MCTS;
+import main.ai.mcts.Node;
+import main.games.BoardGame;
+import main.games.Gomoku;
+import main.games.TicTacToe;
 
 import java.awt.*;
 import java.util.Scanner;
@@ -37,7 +39,9 @@ public class Main {
                 winner = game.checkWinner(currentPlayer * -1, action);
             } else {
                 Node root = new Node(null, null, currentPlayer, moveCount);
+                long startTime = System.currentTimeMillis();
                 MCTS.mcts(game, root, mctsIterations);
+                long endTime = System.currentTimeMillis();
                 Point action = root.getNextAction("maxVisit");
                 currentPlayer = game.applyAction(currentPlayer, action);
                 moveCount++;
@@ -46,6 +50,7 @@ public class Main {
                 for(Node child: root.children) {
                     System.out.printf("Action:(%d, %d), Visit: %d UCB: %f\n",child.prevAction.y, child.prevAction.x, child.visit, Node.getUCB(child));
                 }
+                System.out.printf("execute time of mcts: %f sec \n", (endTime - startTime) / 1000.0);
             }
 
             if(winner != 0) {
@@ -81,7 +86,7 @@ public class Main {
                 playAgainstMCTS(game, 500);
             } else if (sel.equals("2")) {
                 game = new Gomoku();
-                playAgainstMCTS(game, 8000);
+                playAgainstMCTS(game, 800);
             } else if (sel.equals("3")) {
                 return;
             } else {
